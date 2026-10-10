@@ -7,10 +7,7 @@ It talks to each OpenVPN **management interface** over TCP, parses the live clie
 list, enriches it with local GeoIP data, persists an event log to SQLite, and streams
 updates to a dependency-free web UI over WebSocket.
 
-> This repository began as an analysis of `StarSparkleNova/openvpn-status-rust`, which
-> despite its name was an untouched JavaScript fork of `AuspeXeu/openvpn-status`. This
-> directory is the actual Rust implementation (see `openvpn-status-rust-analysis.md`
-> for the reverse-engineering notes).
+> This repository began as a fork of `AuspeXeu/openvpn-status`.
 
 ---
 
