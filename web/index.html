@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>OpenVPN Status</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">OpenVPN&nbsp;Status</div>
+      <div class="server-picker">
+        <select id="serverSelect" aria-label="Server"></select>
+        <span id="onlineDot" class="dot offline" title="management connection"></span>
+        <span id="latency" class="chip" title="status poll round-trip time"></span>
+      </div>
+      <input id="search" type="search" placeholder="Search node or IP…" autocomplete="off" />
+      <span id="serverTime" class="clock" title="server time"></span>
+      <button id="themeToggle" class="icon-btn" title="Toggle theme">🌓</button>
+    </header>
+
+    <nav class="tabs">
+      <button class="tab active" data-tab="clients">Clients</button>
+      <button class="tab" data-tab="events">Events</button>
+      <button class="tab" data-tab="map">Map</button>
+      <button class="tab" data-tab="stats">Stats</button>
+    </nav>
+
+    <main>
+      <section id="view-clients" class="view">
+        <div class="table-wrap">
+          <table class="grid">
+            <thead>
+              <tr>
+                <th class="c-flag"></th>
+                <th data-sort="node">Node</th>
+                <th data-sort="vpn">VPN IP</th>
+                <th data-sort="pub">Public IP</th>
+                <th data-sort="connected">Connected</th>
+                <th data-sort="traffic">Traffic</th>
+                <th class="c-rate">Rate</th>
+                <th class="c-action"></th>
+              </tr>
+            </thead>
+            <tbody id="clientsBody"></tbody>
+          </table>
+        </div>
+        <p id="clientsEmpty" class="empty hidden">No clients connected.</p>
+      </section>
+
+      <section id="view-events" class="view hidden">
+        <div class="table-wrap">
+          <table class="grid">
+            <thead>
+              <tr>
+                <th class="c-flag"></th>
+                <th>Node</th>
+                <th>VPN IP</th>
+                <th>Public IP</th>
+                <th>Event</th>
+                <th>Time</th>
+              </tr>
+            </thead>
+            <tbody id="eventsBody"></tbody>
+          </table>
+        </div>
+        <div class="pager">
+          <button id="prevPage" class="ghost">‹ Prev</button>
+          <span id="pageInfo">—</span>
+          <button id="nextPage" class="ghost">Next ›</button>
+          <select id="pageSize" aria-label="Page size">
+            <option value="25">25 / page</option>
+            <option value="50">50 / page</option>
+            <option value="100">100 / page</option>
+          </select>
+        </div>
+      </section>
+
+      <section id="view-map" class="view hidden">
+        <div id="map" class="map"></div>
+        <div class="map-controls">
+          <button id="zoomIn" class="ghost">+</button>
+          <button id="zoomOut" class="ghost">−</button>
+          <button id="mapFit" class="ghost">Fit</button>
+        </div>
+        <div id="mapEmpty" class="empty hidden">No geolocated clients.</div>
+      </section>
+
+      <section id="view-stats" class="view hidden">
+        <div class="cards">
+          <div class="card"><div class="k">Active clients</div><div class="v" id="statClients">0</div></div>
+          <div class="card"><div class="k">Connects</div><div class="v" id="statConnects">0</div></div>
+          <div class="card"><div class="k">Disconnects</div><div class="v" id="statDisconnects">0</div></div>
+          <div class="card"><div class="k">Poll latency</div><div class="v" id="statLatency">–</div></div>
+          <div class="card"><div class="k">Last update</div><div class="v" id="statLast">–</div></div>
+        </div>
+        <div class="chart-wrap">
+          <div class="chart-title">Connected clients over time</div>
+          <canvas id="historyChart"></canvas>
+        </div>
+        <div class="actions">
+          <button id="refreshNow" class="ghost">↻ Refresh now</button>
+          <button id="exportCsv" class="ghost">⬇ Export CSV</button>
+          <button id="exportJson" class="ghost">⬇ Export JSON</button>
+          <span class="grow"></span>
+          <button id="disconnectAll" class="danger">Disconnect all</button>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span id="buildInfo"></span>
+      <span class="grow"></span>
+      <span id="connState"></span>
+    </footer>
+
+    <div id="toasts" class="toasts"></div>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

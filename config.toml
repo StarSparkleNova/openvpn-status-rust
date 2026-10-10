@@ -1,0 +1,33 @@
+# OpenVPN Status (Rust) — configuration
+# Values may also be supplied via STATUS_* environment variables (see README).
+
+bind = "127.0.0.1"
+port = 3013
+
+# HTTP Basic auth. Leave `username` unset to disable auth.
+# There are NO insecure default credentials (the original shipped admin/admin).
+# username = "admin"
+# password = "change-me"
+
+database_url = "sqlite://data.sqlite"
+# geoip_db = "GeoLite2-City.mmdb"        # auto-discovered if present
+
+poll_interval_secs = 5
+bytecount_interval_secs = 5
+update_flush_secs = 5
+event_dedup_secs = 60
+
+# Delete persisted events older than this many days (0 = keep forever).
+retention_days = 0
+# History samples retained per server for the stats chart.
+history_points = 720
+
+# Free, no-API-key raster tiles for the map view. Set to "" to disable the map.
+map_tile_url = "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+
+[[servers]]
+name = "Server A"
+host = "127.0.0.1"
+man_port = 7656
+# man_pwd = "1337"
+# netmask = "0.0.0.0/0"

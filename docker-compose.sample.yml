@@ -1,0 +1,23 @@
+version: "3.9"
+
+services:
+  openvpn-status:
+    build: .
+    image: openvpn-status-rust
+    container_name: openvpn-status
+    environment:
+      STATUS_BIND: "0.0.0.0"
+      STATUS_PORT: "3013"
+      STATUS_USERNAME: "admin"
+      STATUS_PASSWORD: "change-me"
+      STATUS_DATABASE_URL: "sqlite:///app/data/status.sqlite"
+      # STATUS_MAP_TILE_URL: "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+    volumes:
+      - ./servers:/app/servers:ro
+      - status-data:/app/data
+    ports:
+      - "8080:3013"
+    restart: unless-stopped
+
+volumes:
+  status-data:

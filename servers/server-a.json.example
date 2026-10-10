@@ -1,0 +1,6 @@
+{
+  "name": "Server A",
+  "host": "127.0.0.1",
+  "man_port": 7656,
+  "man_pwd": "1337"
+}

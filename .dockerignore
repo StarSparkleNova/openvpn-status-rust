@@ -1,0 +1,6 @@
+/target
+.git
+data.sqlite*
+*.sqlite*
+GeoLite2-City.mmdb
+servers/*.json
